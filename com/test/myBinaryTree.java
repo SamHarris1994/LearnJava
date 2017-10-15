@@ -48,7 +48,6 @@ public class myBinaryTree {
 	
 	public int getSize() { return treeSize; }
 	
-	/* TO BE IMPROVED
 	public int[] getInorder() {
 		int len = treeSize;
 		int[] preorder = new int[len];
@@ -69,9 +68,8 @@ public class myBinaryTree {
 		}
 		return preorder;
 	}
-	*/
 	
-	public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+	public TreeNode reConstructFromPreorderAndInorder(int [] pre,int [] in) {
         if(pre.length == 0 || in.length == 0 || pre.length != in.length) { return null; }
         
         TreeNode root = new TreeNode(pre[0]);
@@ -79,9 +77,9 @@ public class myBinaryTree {
         int index = 0;
         for( ; index < len; index++) {
             if(in[index] == pre[0]) {
-            	root.left = reConstructBinaryTree(Arrays.copyOfRange(pre, 1, index + 1), 
+            	root.left = reConstructFromPreorderAndInorder(Arrays.copyOfRange(pre, 1, index + 1), 
             			Arrays.copyOfRange(in, 0, index));
-                root.right = reConstructBinaryTree(Arrays.copyOfRange(pre, index + 1, len), 
+                root.right = reConstructFromPreorderAndInorder(Arrays.copyOfRange(pre, index + 1, len), 
                 		Arrays.copyOfRange(in, index + 1, len));
             	break;
             }
@@ -93,7 +91,7 @@ public class myBinaryTree {
             leftPre[i] = pre[i + 1];
             leftIn[i] = in[i];
         }
-        root.left = reConstructBinaryTree(leftPre, leftIn);
+        root.left = reConstructFromPreorderAndInorder(leftPre, leftIn);
         
         int[] rightPre = new int[len - index - 1];
         int[] rightIn = new int[len - index - 1];
@@ -101,7 +99,7 @@ public class myBinaryTree {
             rightPre[j] = pre[index + 1 + j];
             rightIn[j] = in[index + 1 + j];
         }
-        root.right = reConstructBinaryTree(rightPre, rightIn);
+        root.right = reConstructFromPreorderAndInorder(rightPre, rightIn);
         */
         return root;
     }
