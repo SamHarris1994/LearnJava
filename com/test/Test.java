@@ -34,9 +34,17 @@ public class Test {
 		System.out.println(new myArrayList(values).FindKthToTail(2).val);
 		*/
 		
-		
+		/*
+		int[][] m1 = {{1, 2}, {3, 4}};
+		int[][] m2 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+		int[][] m3 = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+		System.out.println(new myMatrix(m1).printMatrix());
+		System.out.println(new myMatrix(m2).printMatrix());
+		System.out.println(new myMatrix(m3).printMatrix());
+		*/
 	}
 	
+	/*
 	public static double Power(double base, int exponent) {
         if(exponent == 0) return 0;
         if(exponent == 1) return base;
@@ -45,5 +53,6 @@ public class Test {
         if(exponent%2 == 0) return temp*temp;
         else return temp*temp*base;
     }
+    */
 
 }
