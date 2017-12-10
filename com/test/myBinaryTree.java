@@ -20,20 +20,27 @@ public class myBinaryTree {
 		setRoot(treenode);
 	}
 	
-	/* TO BE IMPROVED
+	//** TO BE IMPROVED
 	myBinaryTree(int[] arr) {
 		if(arr.length == 0) root = null; treeSize = 0;
-		TreeNode n = new TreeNode(arr[0]);
-		int j;
-		for(int i = 0; 2*i + 1 < arr.length; i++) {
-			j = 2*i + 1;
-			if(arr[j] == -1) {
-				
-			}
-			TreeNode nLeft = new TreeNode(arr[j]);
+		int len = arr.length;
+		TreeNode[] nodes = new TreeNode[len];
+		for(int i = 0; i < len; i++) {
+			if(arr[i] == Integer.MIN_VALUE) nodes[i] = null;
+			else nodes[i] = new TreeNode(arr[i]);
 		}
+		int i = 0;
+		int j = 1;
+		while(j < len) {
+			nodes[i].left = nodes[j];
+			if(j + 1 < len) nodes[i].right = nodes[j + 1];
+			++i;
+			j = 2*i + 1;
+		}
+		root = nodes[0];
+		setRoot(root);
 	}
-	*/
+	//*/
 	
 	public void setRoot(TreeNode treenode) {
 		root = treenode;
