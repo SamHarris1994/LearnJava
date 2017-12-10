@@ -42,6 +42,11 @@ public class Test {
 		System.out.println(new myMatrix(m2).printMatrix());
 		System.out.println(new myMatrix(m3).printMatrix());
 		*/
+		
+		/*
+		int[] arr = {10, 5, 12, 4, 7};
+		System.out.print(new myBST().FindPath(new myBinaryTree(arr).getRoot(), 22).toString());
+		*/
 	}
 	
 	/*
