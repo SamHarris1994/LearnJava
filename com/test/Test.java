@@ -45,7 +45,7 @@ public class Test {
 		
 		/*
 		int[] arr = {10, 5, 12, 4, 7};
-		System.out.print(new myBinaryTree(arr).FindPath(22).toString());
+		System.out.print(new myBinaryTree(arr).FindPathWithSum(22).toString());
 		*/
 	}
 	

@@ -124,9 +124,9 @@ public class myBinaryTree {
         }
     }
 
-    public ArrayList<ArrayList<Integer>> FindPath(int target) { return FindPath(root, target); }
+    public ArrayList<ArrayList<Integer>> FindPathWithSum(int sum) { return FindPathWithSum(root, sum); }
     
-    public ArrayList<ArrayList<Integer>> FindPath(TreeNode node,int target) {
+    public ArrayList<ArrayList<Integer>> FindPathWithSum(TreeNode node,int target) {
         if(node == null) return paths;
         tempPath.add(node.val);
         target -= node.val;
@@ -135,8 +135,8 @@ public class myBinaryTree {
             tempPath.remove(tempPath.size() - 1);
             return paths;
         }
-        FindPath(node.left, target);
-        FindPath(node.right, target);
+        FindPathWithSum(node.left, target);
+        FindPathWithSum(node.right, target);
         tempPath.remove(tempPath.size() - 1);
         return paths;
     }
