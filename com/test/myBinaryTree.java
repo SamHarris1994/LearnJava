@@ -1,5 +1,6 @@
 package com.test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class myBinaryTree {
@@ -11,16 +12,13 @@ public class myBinaryTree {
 		TreeNode(int v) { val = v; }
 	}
 	
-	private TreeNode root;
-	private int treeSize;
+	private TreeNode root = null;
+	private int treeSize = 0;
+	private ArrayList<ArrayList<Integer>> paths = new ArrayList<ArrayList<Integer>>();
+    private ArrayList<Integer> tempPath = new ArrayList<Integer>();
 	
-	myBinaryTree() { root = null; treeSize = 0; }
+	myBinaryTree(TreeNode treenode) { setRoot(treenode); }
 	
-	myBinaryTree(TreeNode treenode) {
-		setRoot(treenode);
-	}
-	
-	//** TO BE IMPROVED
 	myBinaryTree(int[] arr) {
 		if(arr.length == 0) root = null; treeSize = 0;
 		int len = arr.length;
@@ -40,7 +38,6 @@ public class myBinaryTree {
 		root = nodes[0];
 		setRoot(root);
 	}
-	//*/
 	
 	public void setRoot(TreeNode treenode) {
 		root = treenode;
@@ -126,4 +123,22 @@ public class myBinaryTree {
             return false;
         }
     }
+
+    public ArrayList<ArrayList<Integer>> FindPath(int target) { return FindPath(root, target); }
+    
+    public ArrayList<ArrayList<Integer>> FindPath(TreeNode node,int target) {
+        if(node == null) return paths;
+        tempPath.add(node.val);
+        target -= node.val;
+        if(node.left == null && node.right == null && target == 0) {
+            paths.add(new ArrayList<Integer>(tempPath));
+            tempPath.remove(tempPath.size() - 1);
+            return paths;
+        }
+        FindPath(node.left, target);
+        FindPath(node.right, target);
+        tempPath.remove(tempPath.size() - 1);
+        return paths;
+    }
+    
 }
