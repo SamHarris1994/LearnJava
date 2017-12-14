@@ -2,6 +2,7 @@ package com.test;
 
 import com.test.myArrayList.ListNode;
 import com.test.myBinaryTree.TreeNode;
+import com.test.RandomList.RandomListNode;
 import java.util.*;
 
 public class Test {
@@ -47,6 +48,18 @@ public class Test {
 		int[] arr = {10, 5, 12, 4, 7};
 		System.out.print(new myBinaryTree(arr).FindPathWithSum(22).toString());
 		*/
+		
+		/*
+		RandomListNode[] rln = new RandomListNode[4];
+		for(int i = 0; i < rln.length; i++) { rln[i] = new RandomListNode(i); }
+		rln[0].next = rln[1]; rln[0].random = rln[2];
+		rln[1].next = rln[2]; rln[1].random = rln[3];
+		rln[2].next = rln[3]; rln[2].random = rln[1];
+		rln[3].next = null; rln[3].random = rln[0];
+		RandomListNode cloned = RandomList.Clone2(rln[0]);
+		for(RandomListNode p = cloned; p != null; p = p.next) System.out.println(p.label);
+		*/
+		
 	}
 	
 	/*
