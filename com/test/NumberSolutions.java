@@ -1,8 +1,8 @@
 package com.test;
 
-public class BinaryCode {
+public class NumberSolutions {
 
-	public int NumberOf1(int n) {
+	public static int NumberOf1(int n) {
 		int count = 0;
         /*
         char[] binaryCode = Integer.toBinaryString(n).toCharArray();
@@ -25,4 +25,34 @@ public class BinaryCode {
         */
         return count;
     }
+	
+	public static int NumberOf1Between1AndN(int n) {
+        int count = 0;
+        int high;
+        int low;
+        for(int i = 1; i <= n; i *= 10) {
+            high = n/i;
+            low = n%i;
+            if(high % 10 == 1) { count += (high + 8)/10*i + (low + 1); }
+            else { count += (high + 8)/10*i; }
+        }
+        return count;
+    }
+	
+	public static int GetUglyNumber(int index) { //number with factors 2,3,5 only
+		if(index == 0) return 0;
+        int[] records = new int[index];
+        records[0] = 1;
+        int i2 = 0, i3 = 0, i5 = 0;
+        int newRecord;
+        for(int i = 1; i < index; i++) {
+            newRecord = Math.min(records[i2] * 2, Math.min(records[i3] * 3, records[i5] * 5));
+            if(newRecord == records[i2] * 2) i2++;
+            if(newRecord == records[i3] * 3) i3++;
+            if(newRecord == records[i5] * 5) i5++;
+            records[i] = newRecord;
+        }
+        return records[index - 1];
+    }
+	
 }
