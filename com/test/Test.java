@@ -60,11 +60,14 @@ public class Test {
 		for(RandomListNode p = cloned; p != null; p = p.next) System.out.println(p.label);
 		*/
 		
+		String str = "NXWtnzyoHoBhUJaPauJaAitLWNMlkKwDYbbigdMMaYfkVPhGZcrEwp";
+		System.out.println(StringSolutions.FirstNotRepeatingChar(str));
+		
 	}
 	
 	/*
 	public static double Power(double base, int exponent) {
-        if(exponent == 0) return 0;
+        if(exponent == 0) return 1;
         if(exponent == 1) return base;
         if(exponent < 0) return 1.0/Power(base, Math.abs(exponent));
         double temp = Power(base, exponent/2);
