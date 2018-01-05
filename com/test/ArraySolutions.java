@@ -34,7 +34,6 @@ public class ArraySolutions {
         }
         return list;
     }
-    
     public static void adjustMaxHeap(int[] arr, int pos, int len) {
         int childPos = 2*pos + 1;
         int temp = arr[pos];
@@ -50,7 +49,7 @@ public class ArraySolutions {
         arr[pos] = temp;
     }
     
-    public String PrintMinNumber(int[] numbers) {
+    public static String PrintMinNumber(int[] numbers) {
         int len = numbers.length;
         ArrayList<Integer> list = new ArrayList<>();
         for(int i = 0; i < len; i++) {
@@ -70,6 +69,36 @@ public class ArraySolutions {
             str += list.get(i);
         }
         return str;
+    }
+    
+    private int[] copy;
+    public int InversePairs(int[] array) {
+    	if(array == null || array.length <= 0) return 0;
+    	copy = new int[array.length];
+    	return InversePairsCore(array, 0, array.length - 1);
+    }
+    public int InversePairsCore(int[] array, int low, int high) {
+    	if(low >= high) return 0;
+    	int mid = (low + high)/2;
+    	int leftCount = InversePairsCore(array, low, mid)%1000000007;
+    	int rightCount = InversePairsCore(array, mid + 1, high)%1000000007;
+    	int leftPos = mid;
+    	int rightPos = high;
+    	int copyPos = high;
+    	int count = 0;
+    	while(leftPos >= low && rightPos > mid) {
+    		if(array[leftPos] > array[rightPos]) {
+    			count += rightPos - mid;
+    			if(count > 1000000007) count %= 1000000007;
+    			copy[copyPos--] = array[leftPos--];
+    		}else {
+    			copy[copyPos--] = array[rightPos--];
+    		}
+    	}
+    	while(leftPos >= low) copy[copyPos--] = array[leftPos--];
+    	while(rightPos > mid) copy[copyPos--] = array[rightPos--];
+    	for(int i = low; i <= high; i++) { array[i] = copy[i]; }
+    	return (leftCount + rightCount + count)%1000000007;
     }
     
 }
