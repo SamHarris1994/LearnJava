@@ -61,7 +61,7 @@ public class Test {
 		*/
 		
 		String str = "NXWtnzyoHoBhUJaPauJaAitLWNMlkKwDYbbigdMMaYfkVPhGZcrEwp";
-		System.out.println(StringSolutions.FirstNotRepeatingChar(str));
+		System.out.println(new StringSolutions().FirstNotRepeatingChar(str));
 		
 	}
 	
