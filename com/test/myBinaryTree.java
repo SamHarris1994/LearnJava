@@ -2,6 +2,9 @@ package com.test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Stack;
 
 public class myBinaryTree {
 
@@ -51,6 +54,14 @@ public class myBinaryTree {
 	public TreeNode getRoot() { return root; }
 	
 	public int getSize() { return treeSize; }
+	
+	public int GetDepth() { return GetDepth(root); }
+	public int GetDepth(TreeNode node) {
+        if(node == null) return 0;
+        int leftDepth = GetDepth(node.left);
+        int rightDepth = GetDepth(node.right);
+        return (leftDepth > rightDepth) ? (leftDepth + 1) : (rightDepth + 1);
+    }
 	
 	public int[] getInorder() {
 		int len = treeSize;
@@ -113,7 +124,6 @@ public class myBinaryTree {
         return IsSubtree(root1, root2) ||
             HasSubtree(root1.left, root2) || HasSubtree(root1.right, root2);
     }
-	
     public boolean IsSubtree(TreeNode root1,TreeNode root2) {
         if(root2 == null) return true;
         if(root1 == null) return false;
@@ -125,7 +135,6 @@ public class myBinaryTree {
     }
 
     public ArrayList<ArrayList<Integer>> FindPathWithSum(int sum) { return FindPathWithSum(root, sum); }
-    
     public ArrayList<ArrayList<Integer>> FindPathWithSum(TreeNode node,int target) {
         if(node == null) return paths;
         tempPath.add(node.val);
@@ -139,6 +148,112 @@ public class myBinaryTree {
         FindPathWithSum(node.right, target);
         tempPath.remove(tempPath.size() - 1);
         return paths;
+    }
+    
+    /*
+    public boolean isSymmetrical() {
+        return isSymmetrical(root, root);
+    }
+    public boolean isSymmetrical(TreeNode node1, TreeNode node2) {
+        if(node1 == null && node2 == null) return true;
+        if(node1 == null || node2 == null) return false;
+        return node1.val == node2.val && isSymmetrical(node1.left, node2.right) && isSymmetrical(node1.right, node2.left);
+    }
+    */
+    public boolean isSymmetrical() {
+        if(root == null) return true;
+        LinkedList<TreeNode> q1 = new LinkedList<>();
+        LinkedList<TreeNode> q2 = new LinkedList<>();
+        q1.add(root.left);
+        q2.add(root.right);
+        while(!q1.isEmpty() && !q2.isEmpty()) {
+            TreeNode p1 = q1.element();
+            TreeNode p2 = q2.element();
+            q1.remove();
+            q2.remove();
+            if(p1 == null && p2 == null) continue;
+            if(p1 == null || p2 == null) return false;
+            if(p1.val != p2.val) return false;
+            q1.add(p1.left);
+            q1.add(p1.right);
+            q2.add(p2.right);
+            q2.add(p2.left);
+        }
+        return true;
+    }
+    
+    /*
+    public ArrayList<ArrayList<Integer>> ZigZagPrint() {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        if(root == null) return res;
+        Stack<TreeNode> s1 = new Stack<>();
+        Stack<TreeNode> s2 = new Stack<>();
+        s1.push(root);
+        int depth = 1;
+        while(!s1.isEmpty() || !s2.isEmpty()) {
+        	if(depth % 2 == 1) {
+        		ArrayList<Integer> list = new ArrayList<>();
+        		while(!s1.isEmpty()) {
+        			TreeNode node = s1.pop();
+        			if(node != null) {
+        				list.add(node.val);
+        				s2.push(node.left);
+        				s2.push(node.right);
+        			}
+        		}
+        		if(!list.isEmpty()) {
+        			res.add(list);
+        			depth++;
+        		}
+        	}else {
+        		ArrayList<Integer> list = new ArrayList<>();
+        		while(!s2.isEmpty()) {
+        			TreeNode node = s2.pop();
+        			if(node != null) {
+        				list.add(node.val);
+        				s1.push(node.right);
+        				s1.push(node.left);
+        			}
+        		}
+        		if(!list.isEmpty()) {
+        			res.add(list);
+        			depth++;
+        		}
+        	}
+        }
+        return res;
+    }
+    */
+    public ArrayList<ArrayList<Integer>> ZigZagPrint() {
+    	ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        if(root == null) return res;
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
+        boolean leftToRight = true;
+        queue.add(null);
+        queue.add(root);
+        while(queue.size() != 1) {
+        	TreeNode node = queue.remove();
+        	if(node == null) {
+        		Iterator<TreeNode> iter = null;
+        		if(leftToRight) iter = queue.iterator();
+        		else iter = queue.descendingIterator();
+        		leftToRight = !leftToRight;
+        		while(iter.hasNext()) {
+        			TreeNode temp = iter.next();
+        			list.add(temp.val);
+        		}
+        		if(!list.isEmpty()) {
+        			res.add(new ArrayList<Integer>(list));
+        			list.clear();
+        			queue.add(null);
+        		}
+        		continue;
+        	}
+        	if(node.left != null) queue.add(node.left);
+        	if(node.right != null) queue.add(node.right);
+        }
+        return res;
     }
     
 }

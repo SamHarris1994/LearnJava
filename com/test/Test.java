@@ -60,8 +60,18 @@ public class Test {
 		for(RandomListNode p = cloned; p != null; p = p.next) System.out.println(p.label);
 		*/
 		
+		/*
 		String str = "NXWtnzyoHoBhUJaPauJaAitLWNMlkKwDYbbigdMMaYfkVPhGZcrEwp";
 		System.out.println(new StringSolutions().FirstNotRepeatingChar(str));
+		*/
+		
+		/*
+		int[] arr = {1, 2, 2, 3, 4, 4, 3};
+		System.out.println(new myBinaryTree(arr).isSymmetrical());
+		*/
+		
+		int[] arr = {8, 6, 10, 5, 7, 9, 11};
+		System.out.println(new myBinaryTree(arr).ZigZagPrint());
 		
 	}
 	
