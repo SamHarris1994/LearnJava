@@ -42,6 +42,31 @@ public class myBinaryTree {
 		setRoot(root);
 	}
 	
+	myBinaryTree(String str) {
+        TreeNode pRoot = null;
+        if(str.length() != 0) {
+        	String[] strs = str.split(",");
+            Stack<TreeNode> stack = new Stack<>();
+            pRoot = new TreeNode(Integer.parseInt(strs[0]));
+            stack.push(pRoot);
+            int len = strs.length;
+            for(int i = 1; i < len; i++) {
+            	TreeNode node = null;
+                if(!strs[i].equals("#")) {
+                    node = new TreeNode(Integer.parseInt(strs[i]));
+                }
+                if(strs[i - 1].equals("#")) {
+                    stack.pop().right = node;
+                    if(node != null) stack.push(node);
+                }else {
+                    stack.peek().left = node;
+                    if(node != null) stack.push(node);
+                }
+            }
+        }
+        setRoot(pRoot);
+	}
+	
 	public void setRoot(TreeNode treenode) {
 		root = treenode;
 		if(root == null) {
@@ -69,16 +94,16 @@ public class myBinaryTree {
 		if(len != 0) {
 			myBinaryTree leftTree = new myBinaryTree(root.left);
 			int leftLen = leftTree.getSize();
-			int[] leftPre = leftTree.getInorder();
+			int[] leftIn = leftTree.getInorder();
 			myBinaryTree rightTree = new myBinaryTree(root.right);
 			int rightLen = rightTree.getSize();
-			int[] rightPre = rightTree.getInorder();
+			int[] rightIn = rightTree.getInorder();
 			preorder[leftLen] = root.val;
 			for(int i = 0; i < leftLen; i++) {
-				preorder[i] = leftPre[i];
+				preorder[i] = leftIn[i];
 			}
 			for(int i = 0; i < rightLen; i++) {
-				preorder[leftLen + 1 + i] = rightPre[i];
+				preorder[leftLen + 1 + i] = rightIn[i];
 			}
 		}
 		return preorder;
@@ -254,6 +279,77 @@ public class myBinaryTree {
         	if(node.right != null) queue.add(node.right);
         }
         return res;
+    }
+    
+    public String Serialize() {
+        if(root == null) return "";
+        StringBuilder sb = new StringBuilder();
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while(!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            if(node == null) {
+                sb.append("#,");
+            }else {
+                sb.append(node.val);
+                sb.append(",");
+                stack.push(node.right);
+                stack.push(node.left);
+            }
+        }
+        return sb.toString();
+    }
+    public TreeNode Deserialize(String str) {
+        if(str.length() == 0) return null;
+        String[] strs = str.split(",");
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode root = new TreeNode(Integer.parseInt(strs[0]));
+        stack.push(root);
+        int len = strs.length;
+        for(int i = 1; i < len; i++) {
+        	TreeNode node = null;
+            if(!strs[i].equals("#")) {
+                node = new TreeNode(Integer.parseInt(strs[i]));
+            }
+            if(strs[i - 1].equals("#")) {
+                stack.pop().right = node;
+                if(node != null) stack.push(node);
+            }else {
+                stack.peek().left = node;
+                if(node != null) stack.push(node);
+            }
+        }
+        return root;
+    }
+    
+    public TreeNode KthNode(int k) { return KthNode(root, k); }
+    private int count = 0;
+    /*
+    public TreeNode KthNode(TreeNode pRoot, int k) {
+        if(pRoot != null) {
+            TreeNode node = KthNode(pRoot.left, k);
+            if(node != null) return node;
+            if(++count == k) return pRoot;
+            node = KthNode(pRoot.right, k);
+            if(node != null) return node;
+        }
+        return null;
+    }
+    */
+    public TreeNode KthNode(TreeNode pRoot, int k) {
+        if(pRoot == null || count > k) return null;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode p = pRoot;
+        while(p != null || !stack.isEmpty()) {
+            while(p != null) {
+                stack.push(p);
+                p = p.left;
+            }
+            TreeNode node = stack.pop();
+            if(++count == k) return node;
+            p = node.right;
+        }
+        return null;
     }
     
 }

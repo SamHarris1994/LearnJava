@@ -70,8 +70,10 @@ public class Test {
 		System.out.println(new myBinaryTree(arr).isSymmetrical());
 		*/
 		
+		/*
 		int[] arr = {8, 6, 10, 5, 7, 9, 11};
 		System.out.println(new myBinaryTree(arr).ZigZagPrint());
+		*/
 		
 	}
 	
